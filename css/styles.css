@@ -13,6 +13,10 @@
   --color-border: #eeeeee;
   --color-header-bord: #ececec;
   --color-client: #afb1b8;
+  --color-bg-text: rgba(47, 48, 58, 0.8);
+  --color-bg-portfolio: rgba(33, 150, 243, 0.9);
+  --color-backdrop: rgba(0, 0, 0, 0.2);
+  --color-bg-modal: rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -120,13 +124,32 @@ a {
   font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--color-primary);
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .header-link:hover,
 .header-link:focus {
   color: var(--color-brand);
 }
 .header-link.current {
+  position: relative;
   color: var(--color-brand);
+}
+
+.header-link.current::after {
+  content: '';
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--color-brand);
 }
 .site-link {
   display: inline-flex;
@@ -145,6 +168,10 @@ a {
   font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--color-secondary);
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contacts-link:hover,
@@ -219,11 +246,91 @@ a {
 
   cursor: pointer;
   border: none;
+
+  transition-property: background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .hero-button:hover,
 .hero-button:focus {
-  background: var(--color-bg-button);
+  background-color: var(--color-bg-button);
   color: var(--color-light);
+}
+
+/* Modal window */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  background-color: var(--color-backdrop);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+  min-width: 528px;
+  min-height: 581px;
+
+  border: 1px solid var(--color-bg-modal);
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+
+  transition-property: transform;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  background-color: var(--color-light);
+}
+
+.modal-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 8px;
+  margin-right: 8px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid var(--color-bg-modal);
+
+  background-color: var(--color-light);
+}
+
+.icon-close {
+  background-image: url(../images/Vector.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  width: 11px;
+  height: 11px;
 }
 /* Benefits section */
 .benefit {
@@ -273,6 +380,31 @@ a {
 .service .item:not(:last-child) {
   margin-right: 30px;
 }
+
+.service .item {
+  position: relative;
+}
+
+.service-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  bottom: 1px;
+
+  width: 370px;
+  height: 70px;
+
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: var(--color-light);
+  background-color: var(--color-bg-text);
+}
+
 /* Team section */
 .team {
   display: flex;
@@ -324,6 +456,12 @@ a {
   cursor: pointer;
 
   fill: var(--color-client);
+  border-radius: 50%;
+
+  transition-property: background-color, fill;
+  transition-duration: 250ms, 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1),
+    cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-icon:focus,
@@ -373,6 +511,11 @@ a {
 
   border: 1px solid var(--color-client);
   border-radius: 4px;
+
+  transition-property: border, fill;
+  transition-duration: 250ms, 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1),
+    cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logo {
@@ -408,6 +551,11 @@ a {
   cursor: pointer;
   background-color: var(--color-bg-light);
   border: none;
+
+  transition-property: background-color, color, box-shadow;
+  transition-duration: 250ms, 250ms, 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1),
+    cubic-bezier(0.4, 0, 0.2, 1), cubic-bezier(0.4, 0, 0.2, 1);
 }
 .project-button:hover,
 .project-button:focus {
@@ -428,6 +576,54 @@ a {
 
 .project-link {
   display: block;
+
+  transition-property: box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-overlay {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+
+  background-color: var(--color-bg-portfolio);
+
+  transform: translateY(100%);
+  transition-property: transform;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-text {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+
+  padding-right: 24px;
+  padding-left: 24px;
+
+  font-size: 18px;
+  line-height: 1.55;
+  text-align: left;
+
+  color: var(--color-light);
+}
+
+.project-link:focus .project-overlay,
+.project-link:hover .project-overlay {
+  transform: translateY(0);
 }
 
 .project-link:hover,
@@ -503,6 +699,10 @@ a {
   line-height: 1.7;
   color: var(--color-light);
   font-style: normal;
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .footer-adress:hover,
 .footer-adress:focus {
@@ -512,6 +712,10 @@ a {
   line-height: 1.7;
   color: var(--color-light-secondary);
   font-style: normal;
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .footer-link:hover,
 .footer-link:focus {
@@ -540,6 +744,10 @@ a {
   height: 44px;
   background-color: var(--color-light-three);
   border-radius: 50%;
+
+  transition-property: background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-social .item:not(:last-child) {
